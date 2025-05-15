@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Category: {{ category }}</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Reels in Category: {{ category }}</h1>
+    <a href="/">← Back to Home</a>
+    <ul>
+        {% for reel in reels %}
+            <li>
+                <a href="{{ reel.url }}" target="_blank">{{ reel.title or reel.url }}</a>
+                - {{ reel.date_added.strftime('%Y-%m-%d') }}
+                <form method="POST" action="/delete/{{ reel.id }}" style="display:inline;" onsubmit="return confirm('Delete this reel?');">
+                    <button type="submit">🗑️ Delete</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

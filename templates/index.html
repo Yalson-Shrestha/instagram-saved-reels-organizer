@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Saved Reels</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>🎥 My Instagram Reels Organizer</h1>
+    <a href="/add">➕ Add New Reel</a>
+    <a href="/add_category" style="margin-left:20px;">➕ Add Category</a>
+
+    <h2>Filter by Category</h2>
+    <ul>
+        {% for cat in categories %}
+            <li>
+                <a href="/category/{{ cat.id }}">{{ cat.name }}</a>
+                <form method="POST" action="/delete_category/{{ cat.id }}" style="display:inline;" onsubmit="return confirm('Delete this category and all its reels?');">
+                    <button type="submit">🗑️</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <hr>
+
+    <h2>All Reels</h2>
+    <ul>
+        {% for reel in reels %}
+            <li>
+                <a href="{{ reel.url }}" target="_blank">{{ reel.title or reel.url }}</a>
+                - <strong>{{ reel.category.name }}</strong>
+                - {{ reel.date_added.strftime('%Y-%m-%d') }}
+                <form method="POST" action="/delete/{{ reel.id }}" style="display:inline;" onsubmit="return confirm('Delete this reel?');">
+                    <button type="submit">🗑️ Delete</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

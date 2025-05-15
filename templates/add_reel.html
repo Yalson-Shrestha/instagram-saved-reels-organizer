@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Reel</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Add a New Reel</h1>
+    <form method="POST">
+        <label>URL:</label>
+        <input type="text" name="url" required>
+        <label>Title:</label>
+        <input type="text" name="title">
+        <label>Category:</label>
+        <select name="category_id" required>
+            {% for cat in categories %}
+                <option value="{{ cat.id }}">{{ cat.name }}</option>
+            {% endfor %}
+        </select>
+        <label>Tags:</label>
+        <input type="text" name="tags">
+        <button type="submit">Save Reel</button>
+    </form>
+    <p><a href="/add_category">➕ Add New Category</a></p>
+    <p><a href="/">← Back to Home</a></p>
+</body>
+</html>
