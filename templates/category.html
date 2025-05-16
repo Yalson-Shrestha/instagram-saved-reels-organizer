@@ -2,21 +2,39 @@
 <html>
 <head>
     <title>Category: {{ category }}</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <h1>Reels in Category: {{ category }}</h1>
-    <a href="/">← Back to Home</a>
-    <ul>
-        {% for reel in reels %}
-            <li>
-                <a href="{{ reel.url }}" target="_blank">{{ reel.title or reel.url }}</a>
-                - {{ reel.date_added.strftime('%Y-%m-%d') }}
-                <form method="POST" action="/delete/{{ reel.id }}" style="display:inline;" onsubmit="return confirm('Delete this reel?');">
-                    <button type="submit">🗑️ Delete</button>
-                </form>
-            </li>
-        {% endfor %}
-    </ul>
+<body class="bg-gradient-to-br from-blue-100 via-purple-50 to-pink-100 min-h-screen font-sans">
+    <div class="max-w-3xl mx-auto mt-12 p-6 bg-white rounded-xl shadow-lg border border-purple-200">
+
+        <!-- Title -->
+        <h1 class="text-3xl font-bold text-purple-700 mb-6 text-center">🎞️ Reels in Category: <span class="italic">{{ category }}</span></h1>
+
+        <!-- Back Link -->
+        <div class="mb-6 text-center">
+            <a href="/" class="text-sm text-purple-600 hover:underline">← Back to Home</a>
+        </div>
+
+        <!-- Reel List -->
+        <ul class="space-y-4">
+            {% for reel in reels %}
+                <li class="bg-gray-50 border border-gray-200 rounded-md p-4 flex flex-col md:flex-row md:items-center justify-between shadow-sm">
+                    <div class="space-y-1">
+                        <a href="{{ reel.url }}" target="_blank" class="text-blue-700 font-medium hover:underline">
+                            {{ reel.title or reel.url }}
+                        </a>
+                        <div class="text-sm text-gray-600">📅 {{ reel.date_added.strftime('%Y-%m-%d') }}</div>
+                    </div>
+                    <form method="POST" action="/delete/{{ reel.id }}" onsubmit="return confirm('Delete this reel?');" class="mt-3 md:mt-0 md:ml-4">
+                        <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600 transition">🗑️ Delete</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+
+    </div>
 </body>
 </html>
